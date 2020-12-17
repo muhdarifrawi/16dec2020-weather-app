@@ -6,9 +6,14 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    data = requests.get("https://api.data.gov.sg/v1/environment/24-hour-weather-forecast")
-    # print(data)
-    now = datetime.now().isoformat(timespec="seconds")
-    strp_now = datetime.strptime(str(now),"%Y-%m-%dT%H:%M:%S")
-    print("datetime: ",strp_now)
-    return render_template("index.html")
+    
+    time_now = datetime.now().isoformat(timespec="seconds")
+    print("datetime: ",time_now.replace(":","%3A"))
+    full_datetime = time_now.replace(":","%3A")
+
+    # Use the date_time parameter to retrieve the latest forecast issued at that moment in time.
+    data_now = requests.get("https://api.data.gov.sg/v1/environment/24-hour-weather-forecast?date_time={full}".format(full=full_datetime))
+    print(data_now.json()["items"])
+    # Use the date parameter to retrieve all of the forecasts issued for that day
+    data_forecast = requests.get("https://api.data.gov.sg/v1/environment/24-hour-weather-forecast")
+    return render_template("index.html", dataNow=data_now.json())
