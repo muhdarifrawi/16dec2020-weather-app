@@ -17,3 +17,10 @@ def hello_world():
     # Use the date parameter to retrieve all of the forecasts issued for that day
     data_forecast = requests.get("https://api.data.gov.sg/v1/environment/24-hour-weather-forecast")
     return render_template("index.html", dataNow=data_now.json())
+
+
+# this is only for development and not recommended to leave it this way
+__name__ == "__main__":
+app.run(host="0.0.0.0",
+        port=8080,
+        debug=True)
