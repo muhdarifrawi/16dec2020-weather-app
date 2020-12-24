@@ -2,6 +2,19 @@ from flask import Flask, render_template
 import requests
 from datetime import datetime, time
 
+# for rpi GPIO functionality
+import RPi.GPIO as GPIO
+import pigpio
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarning(False)
+
+blue = 20
+red = 16
+green = 12
+
+pi = pigpio.pi()
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -22,10 +35,19 @@ def hello_world():
     for i in warm_light:
         if i == current_forecast:
             print("warm")
+            # rgb 235, 180, 52
+            pi.set_PWM_dutycycle(red,235)
+            pi.set_PWM_dutycycle(green,180)
+            pi.set_PWM_dutycycle(blue,52)
+            pi.stop()
     
     for i in cool_light:
         if i == current_forecast:
             print("cool")
+            pi.set_PWM_dutycycle(red,0)
+            pi.set_PWM_dutycycle(green,0)
+            pi.set_PWM_dutycycle(blue,0)
+            pi.stop()
 
     # Use the date parameter to retrieve all of the forecasts issued for that day
     data_forecast = requests.get("https://api.data.gov.sg/v1/environment/24-hour-weather-forecast")
