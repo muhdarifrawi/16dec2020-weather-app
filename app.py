@@ -36,10 +36,10 @@ def hello_world():
         if i == current_forecast:
             print("warm")
             # rgb 235, 180, 52
-            pi.set_PWM_dutycycle(red,235)
-            pi.set_PWM_dutycycle(green,180)
-            pi.set_PWM_dutycycle(blue,52)
-            pi.stop()
+            pi.set_PWM_dutycycle(red,0)
+            pi.set_PWM_dutycycle(green,240)
+            pi.set_PWM_dutycycle(blue,255)
+           
     
     for i in cool_light:
         if i == current_forecast:
@@ -47,7 +47,7 @@ def hello_world():
             pi.set_PWM_dutycycle(red,0)
             pi.set_PWM_dutycycle(green,0)
             pi.set_PWM_dutycycle(blue,0)
-            pi.stop()
+            
 
     # Use the date parameter to retrieve all of the forecasts issued for that day
     data_forecast = requests.get("https://api.data.gov.sg/v1/environment/24-hour-weather-forecast")
@@ -56,6 +56,6 @@ def hello_world():
 
 # this is only for development and not recommended to leave it this way
 if __name__ == "__main__":
-    app.run(host="0.0.0.0",
+    app.run(host="127.0.0.1",
             port=8080,
             debug=True)
