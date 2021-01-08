@@ -24,6 +24,24 @@ def hello_world():
                     "Heavy Showers","Thundery Showers","Heavy Thundery Showers","Heavy Thundery Showers with Gusty Winds"]
     cool_light = ["Fair","Fair & Warm","Partly Cloudy","Windy","Passing Showers","Showers"]
 
+
+    # generate greeting
+    greeting = ""
+
+    hour_time_24h = int(datetime.now().strftime("%H"))
+
+    if hour_time_24h >= 22 and hour_time_24h<5:
+        greeting = "Good Night"
+    elif hour_time_24h >= 5 and hour_time_24h<12:
+        greeting = "Good Morning"
+    elif hour_time_24h >= 12 and hour_time_24h<17:
+        greeting = "Good Afternoon"
+    elif hour_time_24h >= 17 and hour_time_24h<22:
+        greeting = "Good Evening"
+    else:
+        print("unexpected error")
+
+    #  check for ISO time
     time_now = datetime.now().isoformat(timespec="seconds")
     print("datetime: ",time_now.replace(":","%3A"))
     full_datetime = time_now.replace(":","%3A")
@@ -57,7 +75,7 @@ def hello_world():
 
     # Use the date parameter to retrieve all of the forecasts issued for that day
     data_forecast = requests.get("https://api.data.gov.sg/v1/environment/24-hour-weather-forecast")
-    return render_template("index.html", dataNow=data_now.json(), currentForecast=current_forecast, currentArea=current_area)
+    return render_template("index.html", dataNow=data_now.json(), currentForecast=current_forecast, currentArea=current_area, greeting=greeting)
 
 
 # this is only for development and not recommended to leave it this way

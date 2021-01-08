@@ -1,8 +1,30 @@
-p{
-    font-size:3vh;
+body{
+    margin:0;
 }
 
 .focus{
     font-weight:bold;
+    font-size:8vh;
+}
+
+.greeting{
+    font-size:10vh;
+    margin:2vh 0 2vh 0;
+}
+
+p{
     font-size:5vh;
+}
+
+.container{
+    height:100vh;
+    width:100vw;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background-color:rgb(222, 255, 246);
+}
+.content{
+    height:95vh;
+    width:95vw;
 }

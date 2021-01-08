@@ -7,15 +7,20 @@
     <meta http-equiv="refresh" content="60" >
 </head>
 <body>
-    <h1>Hello world</h1>
-    <!-- {{dataNow["items"]}} -->
-    <p>Expect <span class="focus">{{currentForecast}}</span> in <span class="focus">{{currentArea}}</span></p>
-    <p><span class="focus">Highest humidity</span> has reached <span class="focus">{{dataNow["items"][0]["general"]["relative_humidity"]["high"]}}&#37;</span>
-        and <span class="focus">lowest</span> being <span class="focus">{{dataNow["items"][0]["general"]["relative_humidity"]["low"]}}&#37;</span></p>
-    <p><span class="focus">Highest temperature</span> today is <span class="focus">{{dataNow["items"][0]["general"]["temperature"]["high"]}}&deg;C</span>
-       and the <span class="focus">lowest</span> was <span class="focus">{{dataNow["items"][0]["general"]["temperature"]["low"]}}&deg;C</span></p>
-    <p><span class="focus">Fastest windspeed</span> was <span class="focus">{{dataNow["items"][0]["general"]["wind"]["speed"]["high"]}}km/h</span>
-       and <span class="focus">lowest</span> was <span class="focus">{{dataNow["items"][0]["general"]["wind"]["speed"]["low"]}}km/h</span>
-       at the <span class="focus">direction</span> of <span class="focus">{{dataNow["items"][0]["general"]["wind"]["direction"]}}</span></p>
+    <div class="container">
+        <div class="content">
+            <p class="greeting">{{greeting}} NAME</p>
+            <!-- {{dataNow["items"]}} -->
+            <p>Expect <span class="focus">{{currentForecast}}</span> in <span class="focus">{{currentArea}}</span></p>
+            <p><span class="focus">Highest humidity</span> has reached <span class="focus">{{dataNow["items"][0]["general"]["relative_humidity"]["high"]}}&#37;</span>
+            and <span class="focus">lowest</span> being <span class="focus">{{dataNow["items"][0]["general"]["relative_humidity"]["low"]}}&#37;</span></p>
+            <p><span class="focus">Highest temperature</span> today is <span class="focus">{{dataNow["items"][0]["general"]["temperature"]["high"]}}&deg;C</span>
+        and the <span class="focus">lowest</span> was <span class="focus">{{dataNow["items"][0]["general"]["temperature"]["low"]}}&deg;C</span></p>
+            <p><span class="focus">Fastest windspeed</span> was <span class="focus">{{dataNow["items"][0]["general"]["wind"]["speed"]["high"]}}km/h</span>
+        and <span class="focus">lowest</span> was <span class="focus">{{dataNow["items"][0]["general"]["wind"]["speed"]["low"]}}km/h</span>
+        at the <span class="focus">direction</span> of <span class="focus">{{dataNow["items"][0]["general"]["wind"]["direction"]}}</span></p>
+        </div>
+    </div>
+    
 </body>
 </html>
