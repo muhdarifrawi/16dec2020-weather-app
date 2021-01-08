@@ -3,17 +3,17 @@ import requests
 from datetime import datetime, time
 
 # for rpi GPIO functionality
-import RPi.GPIO as GPIO
-import pigpio
+# import RPi.GPIO as GPIO
+# import pigpio
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarning(False)
+# GPIO.setmode(GPIO.BCM)
+# GPIO.setwarning(False)
 
 blue = 20
 red = 16
 green = 12
 
-pi = pigpio.pi()
+# pi = pigpio.pi()
 
 app = Flask(__name__)
 
@@ -30,28 +30,34 @@ def hello_world():
 
     # Use the date_time parameter to retrieve the latest forecast issued at that moment in time.
     data_now = requests.get("https://api.data.gov.sg/v1/environment/24-hour-weather-forecast?date_time={full}".format(full=full_datetime))
+
+    # current forecast using 2hourly data
+    forecast_now = requests.get("https://api.data.gov.sg/v1/environment/2-hour-weather-forecast?date_time={full}".format(full=full_datetime))
+
     
-    current_forecast = data_now.json()["items"][0]["general"]["forecast"]
+    current_area = forecast_now.json()["area_metadata"][38]["name"]
+    current_forecast = forecast_now.json()["items"][0]["forecasts"][38]["forecast"]
+    print(current_forecast)
     for i in warm_light:
         if i == current_forecast:
             print("warm")
             # rgb 235, 180, 52
-            pi.set_PWM_dutycycle(red,0)
-            pi.set_PWM_dutycycle(green,240)
-            pi.set_PWM_dutycycle(blue,255)
+            # pi.set_PWM_dutycycle(red,0)
+            # pi.set_PWM_dutycycle(green,240)
+            # pi.set_PWM_dutycycle(blue,255)
            
     
     for i in cool_light:
         if i == current_forecast:
             print("cool")
-            pi.set_PWM_dutycycle(red,0)
-            pi.set_PWM_dutycycle(green,0)
-            pi.set_PWM_dutycycle(blue,0)
+            # pi.set_PWM_dutycycle(red,0)
+            # pi.set_PWM_dutycycle(green,0)
+            # pi.set_PWM_dutycycle(blue,0)
             
 
     # Use the date parameter to retrieve all of the forecasts issued for that day
     data_forecast = requests.get("https://api.data.gov.sg/v1/environment/24-hour-weather-forecast")
-    return render_template("index.html", dataNow=data_now.json())
+    return render_template("index.html", dataNow=data_now.json(), currentForecast=current_forecast, currentArea=current_area)
 
 
 # this is only for development and not recommended to leave it this way
